@@ -30,6 +30,12 @@ Apipie.configure do |config|
   # for reloading to work properly you need to specify where your api controllers are (like in Dir.glob):
   config.api_controllers_matcher = File.join(Rails.root, "app", "controllers", "**","*.rb")
 
+  # specify if your api controllers located outside of /app/controllers folder. Used for bootstrapping.
+  config.base_controllers_path = File.join(Rails.root, "app", "controllers")
+
+  # specify routes if your application uses router differ from Rails default one
+  config.api_routes = Rails.application.routes
+
   # config.markup = choose one of:
   #   Apipie::Markup::RDoc.new [default]
   #   Apipie::Markup::Markdown.new

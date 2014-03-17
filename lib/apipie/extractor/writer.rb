@@ -205,7 +205,7 @@ module Apipie
       end
 
       def controller_path
-        @controller_path ||= File.join(Rails.root, "app", "controllers", "#{@controller.controller_path}_controller.rb")
+        @controller_path ||= Apipie::Extractor.controller_path(@controller.controller_path)
       end
 
       def controller_content

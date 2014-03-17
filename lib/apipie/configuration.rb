@@ -6,7 +6,7 @@ module Apipie
       :default_version, :debug, :version_in_url, :namespaced_resources,
       :validate, :validate_value, :validate_presence, :authenticate, :doc_path,
       :show_all_examples, :process_params, :update_checksum, :checksum_path,
-      :link_extension
+      :link_extension, :base_controllers_path
 
     alias_method :validate?, :validate
     alias_method :required_by_default?, :required_by_default
@@ -21,6 +21,11 @@ module Apipie
     # documentation. It requires +:api_controllers_matcher+ to be set to work
     # properly.
     attr_writer :reload_controllers
+
+    # specify routes if used router differ from default e.g.
+    #
+    # Api::Engine.routes
+    attr_accessor :api_routes
 
     def reload_controllers?
       @reload_controllers = Rails.env.development? unless defined? @reload_controllers
@@ -108,6 +113,14 @@ module Apipie
     def api_base_url=(url)
       version = Apipie.configuration.default_version
       @api_base_url[version] = url
+    end
+
+    def base_controllers_path
+      @base_controllers_path || File.join(Rails.root, "app", "controllers")
+    end
+
+    def api_routes
+      @api_routes || Rails.application.routes
     end
 
     def initialize
